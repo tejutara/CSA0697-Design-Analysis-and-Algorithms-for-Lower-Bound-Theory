@@ -1,0 +1,39 @@
+#include<stdio.h>
+void findminmax(int arr[],int low,int high,int *min,int *max)
+{
+	if(low==high)
+	{
+		*min=*max=arr[low];
+		return;
+	}
+	if(low+1==high)
+	{
+		if(arr[low]<arr[high])
+		{
+			*min=arr[low];
+			*max=arr[high];
+		}
+		else
+		{
+			*min=arr[high];
+			*max=arr[low];
+		}
+		return;
+	}
+	int mid=(low+high)/2;
+	int min1,max1,min2,max2;
+	findminmax(arr,low,mid,&min1,&max1);
+	findminmax(arr,mid+1,high,&min2,&max2);
+	*min=(min1<min2)?min1:min2;
+	*max=(max1>max2)?max1:max2;
+}
+int main()
+{
+	int arr[]={100,11,445,1,330,3000};
+	int n=sizeof(arr)/sizeof(arr[0]);
+	int min,max;
+	findminmax(arr,0,n-1,&min,&max);
+	printf("Minimum element is:%d\n",min);
+	printf("Maximum element is:%d\n",max);
+	return 0;
+}
